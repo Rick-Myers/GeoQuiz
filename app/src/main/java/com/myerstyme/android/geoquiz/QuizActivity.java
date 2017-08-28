@@ -30,6 +30,19 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setText(nextQuestion);
     }
 
+    public void checkAnswer(boolean choice){
+        int answerID;
+
+        if (choice == mQuestionBank[mCurrentIndex].isAnswerTrue()){
+            answerID = R.string.correct_toast;
+        } else {
+            answerID = R.string.incorrect_toast;
+        }
+
+        Toast.makeText(QuizActivity.this, answerID, Toast.LENGTH_SHORT).show();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +61,8 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+                checkAnswer(false);
             }
         });
 
