@@ -13,7 +13,6 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
-    private TrueButtonListener tbl;
 
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_oceans, true),
