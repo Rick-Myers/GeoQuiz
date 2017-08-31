@@ -15,6 +15,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button mNextButton;
     private TextView mQuestionTextView;
     private final String TAG = "QuizActivity";
+    private final String KEY_INDEX = "SavedIndex";
+
 
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_oceans, true),
@@ -48,13 +50,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        Log.d(TAG, "onCreate(Bundle) called");
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
         mNextButton = (Button) findViewById(R.id.next_button);
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-
 
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,10 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        //Attempting to reload any persistent data
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
         updateQuestion();
 
     }
@@ -103,5 +109,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG, "onSaveInstanceState(Bundle) called");
+
     }
 }
